@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './reducers';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from "react-router-dom";
+
+//Adds thunk as part of the default middleware
+const store = configureStore({ 
+  reducer: rootReducer, 
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
